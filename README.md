@@ -20,7 +20,8 @@ Written in golang, allowing for cross-platform support.
 It is currently minimalistic program that takes prompt and video ID as input, and text output grounded from YouTube videos.
 
 - [X] Basic functionality
-- [ ] Full scripting support such as pipelines (piping commands as prompt)
+- [ ] Full Linux support and `Makefile` builds
+- [ ] Full scripting support such as pipelines (piping commands as prompt), file descriptors like stderr for errors.
 - [ ] Gemini model picker that supports video input
 - [ ] Gemini Enterprise Agent Platform (aka Vertex AI) endpoint support and ADC auth
 - [ ] Flex and Priority inference for budget tuning
