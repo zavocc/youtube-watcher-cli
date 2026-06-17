@@ -59,7 +59,7 @@ go build -o .\outputs\youtube-watcher-cli.exe
 
 # FAQ
 ### What is the default model used?
-Gemini 3.1 Flash Lite with low reasoning.
+Gemini 3 Flash with minimal reasoning.
 
 ### Are other non Gemini models will be supported in the future for analyzing YouTube video as a subagent?
 No, there are no plans for it. Video understanding capabilities with YouTube videos is only exclusive with Gemini models. However, this utility is designed for other agent harnesses with non-Google models to ask questions about the video.
