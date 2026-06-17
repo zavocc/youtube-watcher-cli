@@ -12,7 +12,7 @@ var (
 )
 
 func showHelp() {
-	helpString := "YouTube Video Watcher version " + version + ". " + "For people and agents." +
+	helpString := "YouTube Video Watcher version " + version + ". " + "For people, for machines, and for agents." +
 		"\n\nUsage: " + os.Args[0] + " --id [YOUTUBE_VIDEO_ID] 'prompt'\n" +
 		" --id\tYouTube video ID [REQUIRED]\n" +
 		" prompt\tPrompt to ask questions about the video [REQUIRED]" +
