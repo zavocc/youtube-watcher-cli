@@ -22,6 +22,9 @@ youtube-watcher-cli --id [YOUTUBE_VIDEO_ID] [prompt]
 
 - `--id [YOUTUBE_VIDEO_ID]`: Required. Pass only the video ID, such as `dQw4w9WgXcQ` from `https://www.youtube.com/watch?v=dQw4w9WgXcQ`.
 - `prompt`: Required. Place the prompt after all named arguments. The binary joins all remaining positional arguments into the prompt.
+
+## Utility arguments
+These will be prioritized if provided, overrides other parameters and only prints the help and version info, then quits the program.
 - `--version`: Print the binary version and exit.
 - `--help`: Show usage help.
 

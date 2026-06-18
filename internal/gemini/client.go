@@ -2,7 +2,8 @@ package gemini
 
 import (
 	"context"
-	"log"
+	"fmt"
+	"os"
 
 	"google.golang.org/genai"
 )
@@ -11,7 +12,8 @@ func GApiClient(prompt string, id string) string {
 	ctx := context.Background()
 	client, err := genai.NewClient(ctx, nil)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, "An error has occurred while initializing the Gemini API client, error log:\n", err.Error())
+		os.Exit(1)
 	}
 
 	contents := []*genai.Content{
@@ -34,7 +36,8 @@ func GApiClient(prompt string, id string) string {
 	)
 
 	if err != nil {
-		log.Fatalln("An error has occurred while performing inference, error log:\n", err.Error())
+		fmt.Fprintln(os.Stderr, "An error has occurred while performing inference, error log:\n", err.Error())
+		os.Exit(1)
 	}
 
 	return result.Text()

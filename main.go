@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 
@@ -37,7 +36,8 @@ func main() {
 	// Check for .youtube.env file in home directory and load it if it exists
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		log.Fatalln("An error has occured while getting user home directory:", err)
+		fmt.Fprintln(os.Stderr, "An error has occured while getting user home directory:", err)
+		os.Exit(1)
 	}
 
 	// Load .youtube.env file if it exists otherwise we  ignore and still proceed to check existing environment variables
@@ -59,14 +59,14 @@ func main() {
 	_, exists := os.LookupEnv("GEMINI_API_KEY")
 
 	if !exists {
-		fmt.Println("Gemini API key environment variable not set. Please set it using GEMINI_API_KEY variable in `~/.youtube.env` or directly in the terminal.")
+		fmt.Fprintln(os.Stderr, "Gemini API key environment variable not set. Please set it using GEMINI_API_KEY variable in `~/.youtube.env` or directly in the terminal.")
 		os.Exit(1)
 	}
 
 	// get the leftover positional arguments as a prompt after parsing command line named arguments
 	args := flag.Args()
 	if len(args) == 0 {
-		fmt.Println("A prompt is required along with --id")
+		fmt.Fprintln(os.Stderr, "A prompt is required along with --id")
 		showHelp()
 		os.Exit(1)
 	}
@@ -74,7 +74,7 @@ func main() {
 
 	// check if --id is set
 	if *videoID == "" {
-		fmt.Println("--id is required before the prompt")
+		fmt.Fprintln(os.Stderr, "--id is required before the prompt")
 		os.Exit(1)
 	}
 
