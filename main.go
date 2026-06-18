@@ -78,6 +78,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	//  dereference videoID so it can be passed as a string normally
 	fmt.Println(gemini.GApiClient(prompt, *videoID))
 	os.Exit(0)
 }
