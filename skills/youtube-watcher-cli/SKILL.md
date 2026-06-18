@@ -49,7 +49,7 @@ Quote the prompt if the shell or command runner requires it, but keep it as the 
 
 ## Failure Handling
 
-- If `GEMINI_API_KEY` is missing, ask the user to set it before retrying.
+- If `GEMINI_API_KEY` is missing, ask the user to set `GEMINI_API_KEY` in `~/.youtube.env` or directly in the terminal before retrying.
 - If the user provides a full YouTube URL, extract the `v` parameter or short URL ID instead of passing the full URL.
 - If the binary is missing from `PATH`, ask the user for the executable path or to install the release binary.
 - If the prompt is absent, ask for the question or extraction task to run against the video.

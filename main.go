@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
+	"github.com/joho/godotenv"
 	"github.com/zavocc/youtube-watcher-cli/internal/gemini"
 )
 
@@ -32,6 +34,16 @@ func printVersion() {
 }
 
 func main() {
+	// Check for .youtube.env file in home directory and load it if it exists
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatalln("An error has occured while getting user home directory:", err)
+	}
+
+	// Load .youtube.env file if it exists otherwise we  ignore and still proceed to check existing environment variables
+	envFilePath := homeDir + "/.youtube.env"
+	_ = godotenv.Load(envFilePath)
+
 	// Check for args and parse it and use flag.Parse instead of os.Args to ensure positional accuracy
 	flag.Usage = showHelp
 	videoID := flag.String("id", "", "YouTube Video ID")
@@ -66,7 +78,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	textualResponse := gemini.GApiClient(prompt, *videoID)
-	fmt.Println(textualResponse)
+	fmt.Println(gemini.GApiClient(prompt, *videoID))
 	os.Exit(0)
 }

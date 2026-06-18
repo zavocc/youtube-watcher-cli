@@ -36,6 +36,8 @@ As of 6/17/2026, I only provided binaries for Microsoft Windows (AMD64) platform
 
 After the binary is placed onto the `PATH` environment variable, you must then set `GEMINI_API_KEY` environment variable or this program will not work.
 
+You can either set `GEMINI_API_KEY` in `~/.youtube.env` or directly setting into the terminal. For coding agents, it's recommended to set the former so you don't have to directly invoke the API key to the prompt.
+
 Use: 
 ```
 .\youtube-watcher-cli  --id [YOUTUBE_VIDEO_ID] Write your prompt here
