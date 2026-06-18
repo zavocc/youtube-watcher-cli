@@ -30,7 +30,7 @@ Do not place named options after the prompt. Anything after the prompt is treate
 ## Workflow
 
 1. Extract the video ID from the user's URL when needed.
-2. Confirm `GEMINI_API_KEY` is available in the command environment.
+2. Confirm if non-empty `~/.youtube.env` file or `GEMINI_API_KEY` is available in the command environment.
 3. Run the binary with `--id` before the prompt.
 4. Read the answer from stdout and report the relevant result to the user.
 
@@ -49,7 +49,7 @@ Quote the prompt if the shell or command runner requires it, but keep it as the 
 
 ## Failure Handling
 
-- If `GEMINI_API_KEY` is missing, ask the user to set `GEMINI_API_KEY` in `~/.youtube.env` or directly in the terminal before retrying.
+- If `GEMINI_API_KEY` is missing, ask the user to set `GEMINI_API_KEY` in `~/.youtube.env` or directly in the terminal before retrying. The binary will search for this file and read it without the need of sourcing, otherwise it will fall back based on existing environment variables set without it.
 - If the user provides a full YouTube URL, extract the `v` parameter or short URL ID instead of passing the full URL.
 - If the binary is missing from `PATH`, ask the user for the executable path or to install the release binary.
 - If the prompt is absent, ask for the question or extraction task to run against the video.
