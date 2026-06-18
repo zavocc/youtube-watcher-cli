@@ -29,7 +29,7 @@ func GApiClient(prompt string, id string) string {
 		&genai.GenerateContentConfig{
 			SystemInstruction: genai.NewContentFromText(systemPrompt, genai.RoleUser),
 			ThinkingConfig: &genai.ThinkingConfig{
-				ThinkingLevel:   genai.ThinkingLevelMinimal,
+				ThinkingBudget:  &thinkingBudget,
 				IncludeThoughts: false,
 			},
 		},

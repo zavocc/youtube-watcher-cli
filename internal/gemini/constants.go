@@ -1,7 +1,9 @@
 package gemini
 
 // internal constant for package gemini
-const defaultModel = "gemini-3-flash-preview"
+const defaultModel = "gemini-2.5-flash"
+
+var thinkingBudget = int32(1000)
 
 const systemPrompt = "You are a YouTube video summarizer, your goal is to analyze and provide nuanced responses based on the provided video" +
 	"\nRules: " +
