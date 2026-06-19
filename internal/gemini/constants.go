@@ -1,10 +1,7 @@
 package gemini
 
-// internal constant for package gemini
-const defaultModel = "gemini-2.5-flash"
-
-var thinkingBudget = int32(1000)
-
+// Unexported constants
+// system prompt
 const systemPrompt = "You are a YouTube video summarizer, your goal is to analyze and provide nuanced responses based on the provided video" +
 	"\nRules: " +
 	"\n- You can only engage that's related to the video content." +

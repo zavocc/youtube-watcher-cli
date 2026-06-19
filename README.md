@@ -23,7 +23,7 @@ It is currently minimalistic program that takes prompt and video ID as input, an
 - [X] Basic functionality
 - [ ] Full Linux support and `Makefile` builds
 - [ ] Full scripting support such as pipelines (piping commands as prompt), file descriptors like stderr for errors
-- [ ] Gemini model picker that supports video input
+- [x] Gemini model picker that supports video input (For now it supports 2.5 Flash, 3 Flash, and 3.1 Flash-Lite)
 - [ ] Gemini Enterprise Agent Platform (aka Vertex AI) endpoint support and ADC auth
 - [ ] Flex and Priority inference for budget tuning
 - [ ] Nano Banana 2 based frame extraction

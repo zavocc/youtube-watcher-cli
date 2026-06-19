@@ -17,12 +17,18 @@ var (
 func showHelp() {
 	helpString := "YouTube Video Watcher version " + version + ". " + "For people, for machines, and for agents." +
 		"\n\nUsage: " + os.Args[0] + " --id [YOUTUBE_VIDEO_ID] 'prompt'\n" +
-		" --id\tYouTube video ID [REQUIRED]\n" +
-		" prompt\tPrompt to ask questions about the video [REQUIRED]" +
+		" --id       YouTube video ID [REQUIRED]\n" +
+		" --model    Model to use for inference, defaults to " + gemini.DefaultModel + "\n" +
+		" prompt     Prompt to ask questions about the video [REQUIRED]" +
 		"\n\n" +
 		"Supplemental options:\n" +
-		" --help\tShow help\n" +
-		" --version\tPrint version"
+		" --help     Show help\n" +
+		" --version  Print version" +
+		"\n\n" +
+		"Supported models:\n" +
+		" - gemini-2.5-flash (with 1024 thinking budget)\n" +
+		" - gemini-3-flash-preview (with minimal thinking level)\n" +
+		" - gemini-3.1-flash-lite (with low thinking level)"
 
 	fmt.Println(helpString)
 }
@@ -47,6 +53,7 @@ func main() {
 	// Check for args and parse it and use flag.Parse instead of os.Args to ensure positional accuracy
 	flag.Usage = showHelp
 	videoID := flag.String("id", "", "YouTube Video ID")
+	selectedModel := flag.String("model", gemini.DefaultModel, "Model to use")
 	invokeVersion := flag.Bool("version", false, "Print version")
 	flag.Parse()
 
@@ -79,6 +86,6 @@ func main() {
 	}
 
 	//  dereference videoID so it can be passed as a string normally
-	fmt.Println(gemini.GApiClient(prompt, *videoID))
+	fmt.Println(gemini.GApiClient(prompt, *videoID, *selectedModel))
 	os.Exit(0)
 }

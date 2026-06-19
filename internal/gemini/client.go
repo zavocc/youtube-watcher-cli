@@ -8,13 +8,16 @@ import (
 	"google.golang.org/genai"
 )
 
-func GApiClient(prompt string, id string) string {
+func GApiClient(prompt string, id string, model string) string {
 	ctx := context.Background()
 	client, err := genai.NewClient(ctx, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "An error has occurred while initializing the Gemini API client, error log:\n", err.Error())
 		os.Exit(1)
 	}
+
+	// Validate model and get corresponding config
+	modelSelectedConfig := ValidateModels(model)
 
 	contents := []*genai.Content{
 		genai.NewContentFromParts([]*genai.Part{
@@ -24,14 +27,11 @@ func GApiClient(prompt string, id string) string {
 	}
 
 	result, err := client.Models.GenerateContent(
-		ctx, defaultModel,
+		ctx, modelSelectedConfig.modelID,
 		contents,
 		&genai.GenerateContentConfig{
 			SystemInstruction: genai.NewContentFromText(systemPrompt, genai.RoleUser),
-			ThinkingConfig: &genai.ThinkingConfig{
-				ThinkingBudget:  &thinkingBudget,
-				IncludeThoughts: false,
-			},
+			ThinkingConfig:    modelSelectedConfig.thinkingConfig,
 		},
 	)
 
