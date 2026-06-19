@@ -28,7 +28,7 @@ It is currently minimalistic program that takes prompt and video ID as input, an
 - [ ] Flex and Priority inference for budget tuning
 - [ ] Nano Banana 2 based frame extraction
 - [ ] Optional Gemma 4-based guardrails for both input and output
-- [ ] Resolution parameter
+- [ ] Video controls such as resolution and start/end offset parameter
 
 # How to use
 Download the binary through the [releases](/releases) page. \
@@ -44,10 +44,12 @@ Use:
 ```
 Note that the prompt must be at the end of the argument, either quoted or unquoted.
 
-## Required parameters
+## Parameters
 - `--id [YOUTUBE_VIDEO_ID]` - it specifically requires the Video ID itself.
     To get YouTube video ID, take https://www.youtube.com/watch?v=dQw4w9WgXcQ for example. The YouTube video ID of this video is `dQw4w9WgXcQ` after `?v=`
-- `prompt` - placed at the end after named arguments, any arguments placed after `prompt` will be treated as part of the prompt as is. So passing `--model gemini-3-flash-preview` after `prompt` would be treated as prompt.
+- `--model [MODEL_ID]` - An optional parameter of model ID to set to analyze videos, please see [models list](./internal/gemini/models.go) for list of supported model and defaults.
+
+`prompt` is placed at the end after named arguments, any arguments placed after `prompt` will be treated as part of the prompt as is. So passing `--model gemini-3-flash-preview` after `prompt` would be treated as prompt.
 
 # Building
 You will need the latest version of Golang. I used Go version 1.26.4, `go` is set to PATH and `GOROOT` set to your environment variables pointing to Golang SDK directory. 
