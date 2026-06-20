@@ -51,6 +51,15 @@ Note that the prompt must be at the end of the argument, either quoted or unquot
 
 `prompt` is placed at the end after named arguments, any arguments placed after `prompt` will be treated as part of the prompt as is. So passing `--model gemini-3-flash-preview` after `prompt` would be treated as prompt.
 
+# Installing the agent skill
+The `youtube-watcher-cli` agent skill allows your agents of your choice effectively use this tool and understand YouTube videos. To install, use the `npx skills` command:
+
+```shell
+npx skills add zavocc/youtube-watcher-cli --global     
+```
+
+You will be asked where to install the skill based on the agent tools you use.
+
 # Building
 You will need the latest version of Golang. I used Go version 1.26.4, `go` is set to PATH and `GOROOT` set to your environment variables pointing to Golang SDK directory. 
 
