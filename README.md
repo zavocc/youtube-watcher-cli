@@ -44,19 +44,19 @@ Use:
 ```
 Note that the prompt must be at the end of the argument, either quoted or unquoted.
 
+## Installing for agents
+The `youtube-watcher-cli` agent skill allows the agents of your choice effectively use this tool and understand YouTube videos. To install, use the `npx skills` command:
+
+```shell
+npx skills add zavocc/youtube-watcher-cli --global     
+```
+
 ## Parameters
 - `--id [YOUTUBE_VIDEO_ID]` - it specifically requires the Video ID itself.
     To get YouTube video ID, take https://www.youtube.com/watch?v=dQw4w9WgXcQ for example. The YouTube video ID of this video is `dQw4w9WgXcQ` after `?v=`
 - `--model [MODEL_ID]` - An optional parameter of model ID to set to analyze videos, please see [models list](./internal/gemini/models.go) for list of supported model and defaults.
 
 `prompt` is placed at the end after named arguments, any arguments placed after `prompt` will be treated as part of the prompt as is. So passing `--model gemini-3-flash-preview` after `prompt` would be treated as prompt.
-
-# Installing the agent skill
-The `youtube-watcher-cli` agent skill allows your agents of your choice effectively use this tool and understand YouTube videos. To install, use the `npx skills` command:
-
-```shell
-npx skills add zavocc/youtube-watcher-cli --global     
-```
 
 You will be asked where to install the skill based on the agent tools you use.
 
