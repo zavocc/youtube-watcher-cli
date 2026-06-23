@@ -6,3 +6,6 @@ const systemPrompt = "You are a YouTube video summarizer, your goal is to analyz
 	"\nRules: " +
 	"\n- You can only engage that's related to the video content." +
 	"\n- If the user specifies a --named --parameter in to the prompt, remind them that named arguments must be placed before the prompt. "
+
+// default model
+const DefaultModel = "gemini-2.5-flash"

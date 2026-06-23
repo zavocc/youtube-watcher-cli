@@ -1,4 +1,4 @@
-package gemini
+package config
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 )
 
 type configTemplate struct {
-	modelID        string
-	thinkingConfig *genai.ThinkingConfig
+	ModelID        string
+	ThinkingConfig *genai.ThinkingConfig
 }
 
 // Thinking budgets
@@ -19,24 +19,24 @@ func ValidateModels(model string) configTemplate {
 	switch model {
 	case "gemini-2.5-flash":
 		return configTemplate{
-			modelID: "gemini-2.5-flash",
-			thinkingConfig: &genai.ThinkingConfig{
+			ModelID: "gemini-2.5-flash",
+			ThinkingConfig: &genai.ThinkingConfig{
 				ThinkingBudget:  &thinkingBudget,
 				IncludeThoughts: false,
 			},
 		}
 	case "gemini-3-flash-preview":
 		return configTemplate{
-			modelID: "gemini-3-flash-preview",
-			thinkingConfig: &genai.ThinkingConfig{
+			ModelID: "gemini-3-flash-preview",
+			ThinkingConfig: &genai.ThinkingConfig{
 				ThinkingLevel:   genai.ThinkingLevelMinimal,
 				IncludeThoughts: false,
 			},
 		}
 	case "gemini-3.1-flash-lite":
 		return configTemplate{
-			modelID: "gemini-3.1-flash-lite",
-			thinkingConfig: &genai.ThinkingConfig{
+			ModelID: "gemini-3.1-flash-lite",
+			ThinkingConfig: &genai.ThinkingConfig{
 				ThinkingLevel:   genai.ThinkingLevelLow,
 				IncludeThoughts: false,
 			},
@@ -48,6 +48,3 @@ func ValidateModels(model string) configTemplate {
 
 	return configTemplate{}
 }
-
-// default model
-const DefaultModel = "gemini-2.5-flash"

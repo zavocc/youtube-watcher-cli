@@ -22,6 +22,7 @@ youtube-watcher-cli --id [YOUTUBE_VIDEO_ID] --model [MODEL_ID] [prompt]
 
 - `--id [YOUTUBE_VIDEO_ID]`: Required. Pass only the video ID, such as `dQw4w9WgXcQ` from `https://www.youtube.com/watch?v=dQw4w9WgXcQ`.
 - `--model [MODEL_ID]`: Optional. Specify a model to use to process the video, defaults to `gemini-2.5-flash` if not specified. See the supported models section below for choosing model.
+- `--media-resolution [RESOLUTION]`: Optional. Specify the media resolution for the video, such as `low` or `high`. Defaults to `low` if not provided. Use `low` to prioritize speed and cost over extreme fine-detail, and `high` for better visual fidelity and fine details over cost of speed and budget.
 
 `prompt` must be placed after all named arguments. The tool joins all remaining positional arguments into a prompt.
 

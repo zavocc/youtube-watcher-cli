@@ -16,10 +16,11 @@ var (
 
 func showHelp() {
 	helpString := "YouTube Video Watcher version " + version + ". " + "For people, for machines, and for agents." +
-		"\n\nUsage: " + os.Args[0] + " --id [YOUTUBE_VIDEO_ID] 'prompt'\n" +
-		" --id       YouTube video ID [REQUIRED]\n" +
-		" --model    Model to use for inference, defaults to " + gemini.DefaultModel + "\n" +
-		" prompt     Prompt to ask questions about the video [REQUIRED]" +
+		"\n\nUsage: " + os.Args[0] + " --video [YOUTUBE_VIDEO_URL_OR_ID] 'prompt'\n" +
+		" --video             YouTube video URL or ID [REQUIRED]\n" +
+		" --model             Model to use for inference, defaults to " + gemini.DefaultModel + "\n" +
+		" --media-resolution  Media resolution for the video. Possible values are only low, high. If not set, it will default for low resolution\n" +
+		" prompt              Prompt to ask questions about the video [REQUIRED]" +
 		"\n\n" +
 		"Supplemental options:\n" +
 		" --help     Show help\n" +
@@ -52,8 +53,9 @@ func main() {
 
 	// Check for args and parse it and use flag.Parse instead of os.Args to ensure positional accuracy
 	flag.Usage = showHelp
-	videoID := flag.String("id", "", "YouTube Video ID")
+	videoID := flag.String("video", "", "YouTube Video URL or ID")
 	selectedModel := flag.String("model", gemini.DefaultModel, "Model to use")
+	mediaRes := flag.String("media-resolution", "low", "Media resolution for the video (low, medium, high)")
 	invokeVersion := flag.Bool("version", false, "Print version")
 	flag.Parse()
 
@@ -73,7 +75,7 @@ func main() {
 	// get the leftover positional arguments as a prompt after parsing command line named arguments
 	args := flag.Args()
 	if len(args) == 0 {
-		fmt.Fprintln(os.Stderr, "A prompt is required along with --id")
+		fmt.Fprintln(os.Stderr, "A prompt is required along with --video")
 		showHelp()
 		os.Exit(1)
 	}
@@ -81,11 +83,11 @@ func main() {
 
 	// check if --id is set
 	if *videoID == "" {
-		fmt.Fprintln(os.Stderr, "--id is required before the prompt")
+		fmt.Fprintln(os.Stderr, "--video is required before the prompt")
 		os.Exit(1)
 	}
 
 	//  dereference videoID so it can be passed as a string normally
-	fmt.Println(gemini.GApiClient(prompt, *videoID, *selectedModel))
+	fmt.Println(gemini.GApiClient(prompt, *videoID, *selectedModel, *mediaRes))
 	os.Exit(0)
 }
