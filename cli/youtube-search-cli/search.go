@@ -15,7 +15,7 @@ func showHelpSearch() {
 	helpString := "Search YouTube videos by query." +
 		"\n\nUsage: " + os.Args[0] + " search [options] [search query]\n" +
 		"\nSearch options:\n" +
-		" --filter              Result type: video, playlist, or mixed [DEFAULT: video]\n" +
+		" --filter              Result type: video, playlist, or mixed [DEFAULT: mixed]\n" +
 		" --max-results         Maximum number of results to return [DEFAULT: 10]\n" +
 		" --next-page-token     Token for the next page of results, can be obtained from previous search results\n" +
 		" query                	Search query [REQUIRED]" +
@@ -31,7 +31,7 @@ func runSearch(ctx context.Context, args []string) {
 	flagSet.Usage = showHelpSearch
 
 	// args
-	filter := flagSet.String("filter", "video", "Result type: video, playlist, or mixed")
+	filter := flagSet.String("filter", "mixed", "Result type: video, playlist, or mixed")
 	maxResults := flagSet.Int64("max-results", 10, "Maximum number of results to return")
 	nextPageToken := flagSet.String("next-page-token", "", "Token for the next page of results")
 	showHelp := flagSet.Bool("help", false, "Show this subcommand help")

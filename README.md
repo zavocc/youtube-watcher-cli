@@ -5,7 +5,7 @@ Designed for people, machines, and agents - simple and portable.
 
 Written in golang, allowing for cross-platform support.
 
-## Whom this for
+## Whom is this for
 - For people - You can use this to ask questions, extract content,  and generate transcriptions about the YouTube video. It also saves bandwidth by simply gives you textual representation of the video.
 - For machines - You can use this to build on top of this tool, such as GUI frontends, CI/CD, automation, and scripts.
 - For agents - Coding and general purpose agents with `bash` tool can use this to understand and ask questions about the YouTube video content without scraping transcripts.  A minimal `SKILL.md` copy is provided for agents.
