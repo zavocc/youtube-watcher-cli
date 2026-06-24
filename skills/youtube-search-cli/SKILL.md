@@ -91,7 +91,7 @@ Assume the standard YouTube Data API allocation is 10,000 quota units per projec
 - Follow relevant playlists with the 1-unit `playlist` command before buying more 100-unit search pages.
 - Choose `--max-results` deliberately. A larger page does not increase the quota cost of that request and can reduce follow-up calls, but it produces more JSON and may waste context on irrelevant results.
 - Treat every `--next-page-token` use as a new API request: another 100 units for `search`, or another 1 unit for `playlist`.
-- Save large JSON responses to a file and inspect only relevant fields with tools such as `jq` or `rg` instead of loading the entire response into agent context.
+- Save large JSON responses to a file and inspect only relevant fields with tools such as `jq` or `rg` instead of loading the entire response into context.
 
 ## Workflow
 

@@ -86,7 +86,7 @@ Each action cost varying units depending on the type of task.
 
 Exactly 10K calls a day for solely video and playlist operations and 100 calls a day for solely search operations before reaching the daily limit for all endpoints.
 
-It will incur similar costs regardless if next page token or max results is set.
+It costs the same quota whether for instance `--max-results` search flag is set to 5 or 50, so prefer fetching the maximum useful page size when you can handle the extra output.
 
 ## Optimize costs
 To stretch `search` operations, it's recommended to always include and list playlists when found, and only use `video` filter mode as needed. As playlists costs significantly less and still lets you find videos as needed.
