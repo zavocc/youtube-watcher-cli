@@ -25,5 +25,5 @@ go build `
 
 go build `
   -ldflags $LDFLAGS `
-  -o .\outputs\youtube-search-$env:GOOS-$env:GOARCH-$Version$EXE `
-  .\cli\youtube-search\main.go
+  -o .\outputs\youtube-search-cli-$env:GOOS-$env:GOARCH-$Version$EXE `
+  .\cli\youtube-search-cli\main.go
