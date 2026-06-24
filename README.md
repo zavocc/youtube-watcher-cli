@@ -5,6 +5,8 @@ Designed for people, machines, and agents.
 
 Written in golang, allowing for cross-platform support.
 
+If you want to integrate YouTube Data API for search and video metadata extraction in a similar CLI fashion, check out [README for `youtube-search-cli`](./README_yt_search.md). It includes the same installation steps and skills.
+
 ## Whom is this for
 - For people - You can use this to ask questions, extract content,  and generate transcriptions about the YouTube video. It also saves bandwidth by simply gives you textual representation of the video.
 - For machines - You can use this to build on top of this tool, such as GUI frontends, CI/CD, automation, and scripts.
@@ -33,7 +35,7 @@ It is currently minimalistic program that takes prompt and video ID as input, an
 *As of 06/23/26, only media resolution parameter is implemented.
 
 # Usage and installation
-Download the binary through the [releases](https://github.com/zavocc/youtube-watcher-cli/releases) page.
+Download the binary through the [releases](https://github.com/zavocc/youtube-watcher-cli/releases) page and must have the filename `youtube-watcher-cli`.
 
 After the binary is placed onto the `PATH` environment variable, you must then set `GEMINI_API_KEY` environment variable or this program will not work.
 
@@ -53,6 +55,8 @@ npx skills add zavocc/youtube-watcher-cli --global
 ```
 
 You will be asked where to install the skill based on the agent tools you use.
+
+This will install both `youtube-watcher-cli` and `youtube-search-cli` skills.
 
 ## Parameters
 - `--video [YOUTUBE_VIDEO_ID_OR_URL]` - Either the public YouTube video URL or ID of the video itself.

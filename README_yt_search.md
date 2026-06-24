@@ -24,13 +24,17 @@ Regardless if you're accessing YouTube Data API v3 with Google Cloud free or pai
 While it is enough for personal use, can be stretched to an extent with personal agents. It is not suitable for scalability. For cloud agents and automation scripts, only use this if `yt-dlp` cannot fetch results to a certain extent.
 
 # Usage and installation
-Download the binary through the [releases](https://github.com/zavocc/youtube-watcher-cli/releases) page.
+Download the binary through the [releases](https://github.com/zavocc/youtube-watcher-cli/releases) page and must have the filename `youtube-watcher-cli`.
 
 After the binary is placed onto the `PATH` environment variable, you must then set `YOUTUBE_DATA_API_KEY` environment variable or this program will not work.
 
 You can either set `YOUTUBE_DATA_API_KEY` in `~/.youtube.env` or directly setting into the terminal. For coding agents, it's recommended to set the former so you don't have to directly invoke the API key to the prompt.
 
 To obtain an API key, you must enable [YouTube Data API](https://console.cloud.google.com/apis/api/youtube.googleapis.com/) within your GCP project, and create a restricted API key from [credentials](https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials) page.
+
+## Installing the agent skill
+For more information on how to install an agent skill for `youtube-search-cli`, see [README - Installing the agent skill](./README.md#installing-the-agent-skill).
+
 
 ## Using the CLI program
 ```
