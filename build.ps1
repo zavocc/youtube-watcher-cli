@@ -21,9 +21,9 @@ $LDFLAGS = "-X github.com/zavocc/youtube-watcher-cli/internal/shared.Version=$Ve
 go build `
   -ldflags $LDFLAGS `
   -o .\outputs\youtube-watcher-cli-$env:GOOS-$env:GOARCH-$Version$EXE `
-  .\cli\youtube-watcher-cli\main.go
+  .\cli\youtube-watcher-cli\
 
 go build `
   -ldflags $LDFLAGS `
   -o .\outputs\youtube-search-cli-$env:GOOS-$env:GOARCH-$Version$EXE `
-  .\cli\youtube-search-cli\main.go
+  .\cli\youtube-search-cli\
