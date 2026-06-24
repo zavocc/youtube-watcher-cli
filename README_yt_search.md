@@ -24,7 +24,7 @@ Regardless if you're accessing YouTube Data API v3 with Google Cloud free or pai
 While it is enough for personal use, can be stretched to an extent with personal agents. It is not suitable for scalability. For cloud agents and automation scripts, only use this if `yt-dlp` cannot fetch results to a certain extent.
 
 # Usage and installation
-Download the binary through the [releases](https://github.com/zavocc/youtube-watcher-cli/releases) page and must have the filename `youtube-watcher-cli`.
+Download the binary through the [releases](https://github.com/zavocc/youtube-watcher-cli/releases) page and must have the filename `youtube-search-cli`.
 
 After the binary is placed onto the `PATH` environment variable, you must then set `YOUTUBE_DATA_API_KEY` environment variable or this program will not work.
 
