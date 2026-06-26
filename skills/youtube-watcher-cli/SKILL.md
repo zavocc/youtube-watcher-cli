@@ -70,7 +70,7 @@ See visual frames and hear audio of the video, text prompt, and small system ins
 
 It cannot see YouTube video ID, title, or other metadata. Use `yt-dlp` or YouTube Data API to get that information separately if needed.
 
-It may also struggle with very long videos due to context limit. Such as videos exceeding more than 1.5 hours with audio.
+It may also struggle with very long videos due to context limit, such as videos exceeding more than 1.5 hours with audio. Before committing to input videos, check the metadata and duration of the video first whenever possible to ensure it is within the model's context limit. 
 
 ## Failure Handling
 
