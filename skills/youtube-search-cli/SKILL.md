@@ -43,6 +43,10 @@ youtube-search-cli search --filter video --max-results 25 "TypeScript tutorials"
 youtube-search-cli search --max-results 50 --next-page-token TOKEN "travel vlogs"
 ```
 
+This endpoint returns a `youtube#searchListResponse` kind, with `id` and `snippet` parts.
+
+Performing this operation costs 100 units.
+
 ### Playlist
 
 ```bash
@@ -59,6 +63,26 @@ Example:
 youtube-search-cli playlist --max-results 50 PLxxxxxxxxxxxxxxxx
 ```
 
+This endpoint returns a `youtube#playlistListResponse` kind, with `id`, `snippet`, and `contentDetails` parts.
+
+Performing this operation costs 1 unit.
+
+
+### Channel
+
+```bash
+youtube-search-cli channel [--query-type id|username|handle] [--max-results N] [--next-page-token TOKEN] QUERY_CHANNEL_NAME_OR_ID
+```
+
+- `QUERY_CHANNEL_NAME_OR_ID`: Required channel ID, legacy username, or handle.
+- `--query-type`: Optional query type; default `handle`. Accepts `id`, `username`, or `handle`.
+- `--max-results`: Optional results per page from 1 to 50; default 10.
+- `--next-page-token`: Optional token from a previous response for the next playlist page.
+
+This endpoint returns a `youtube#playlistListResponse` kind, with `id`, `snippet`, and `contentDetails` parts, as it calls playlist endpoint to list videos from the channel.
+
+Performing this operation costs 2 units - one for the channel query and one for the playlist query which lists videos from the queried channel, pagination with `--next-page-token` will cost the same 2 units.
+
 ### Video
 
 ```bash
@@ -74,6 +98,10 @@ Example:
 youtube-search-cli video dQw4w9WgXcQ
 ```
 
+This endpoint returns a `youtube#videoListResponse` kind, with `id`, `snippet`, and `contentDetails` parts.  
+
+Performing this operation costs 1 units.
+
 ### Utility arguments
 
 - `--help` or `-h`: Show top-level help.
@@ -85,13 +113,22 @@ youtube-search-cli video dQw4w9WgXcQ
 Assume the standard YouTube Data API allocation is 10,000 quota units per project per day unless the user states otherwise.
 
 - Treat each `search` request as 100 units. This permits about 100 search requests if no other operations consume quota.
-- Treat each `playlist` or `video` request as 1 unit. Prefer these commands when an ID is already known.
+- Treat each `playlist`, `channel` or `video` request as 1 unit. Prefer these commands when an ID is already known.
 - Try `yt-dlp` or web search first for discovery when they work in the current environment. Use this binary when API reliability, structured results, cloud-network access, or YouTube Terms of Service compliance matters.
-- Start discovery with `--filter mixed` so one 100-unit request can expose both videos and useful playlists. Run a separate playlist-only search only when its additional 100-unit cost is justified.
+- Start discovery with `--filter mixed` so one 100-unit request can expose both videos, associated channel, and useful playlists. See [Combinations](#combinations) for ways to stretch the 10,000-unit daily quota.
 - Follow relevant playlists with the 1-unit `playlist` command before buying more 100-unit search pages.
 - Choose `--max-results` deliberately. A larger page does not increase the quota cost of that request and can reduce follow-up calls, but it produces more JSON and may waste context on irrelevant results.
 - Treat every `--next-page-token` use as a new API request: another 100 units for `search`, or another 1 unit for `playlist`.
 - Save large JSON responses to a file and inspect only relevant fields with tools such as `jq` or `rg` instead of loading the entire response into context.
+
+### Combinations
+
+To make the most of the 10,000-unit daily quota and to stretch it while discovering videos from various playlists or channels, consider these combinations:
+
+- Run two calls with `search --filter mixed` and `search --filter playlist` if there's a relevant playlist and is worth looking for, this search combination costs 200 units. Followed by further `playlist` calls for each relevant playlist found and paginate as needed which costs additional 1 or more units per playlist list.
+- Run `search --filter mixed` and then `channel --query-type id [ID]` if the associated search results from videos have channel name and its ID that is worth looking for to discover possible relevant videos, this combination costs 100 units for search and 2 units for channel video listing as described above. This is much more cheaper than the playlist workflow.
+
+Keep in mind that this depends on the results shown so these combinations are not guaranteed to be the most efficient for every search query, but they are a good starting point for cost optimization.
 
 ## Workflow
 
@@ -99,7 +136,7 @@ Assume the standard YouTube Data API allocation is 10,000 quota units per projec
 2. Confirm that the binary is available and that `YOUTUBE_DATA_API_KEY` is configured without exposing its value.
 3. Select the lowest-cost subcommand that can answer the task.
 4. Run the command with named options before the positional query or ID.
-5. Parse the JSON response and report only the relevant results. Preserve `nextPageToken` when another page may be needed.
+5. Parse the JSON response and report only the relevant results when necessary. Preserve `nextPageToken` when another page may be needed.
 6. Stop paging once the task is answered; do not spend quota collecting unused results.
 
 ## Failure handling

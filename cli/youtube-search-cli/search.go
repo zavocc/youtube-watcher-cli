@@ -15,13 +15,13 @@ func showHelpSearch() {
 	helpString := "Search YouTube videos by query." +
 		"\n\nUsage: " + os.Args[0] + " search [options] [search query]\n" +
 		"\nSearch options:\n" +
-		" --filter              Result type: video, playlist, or mixed [DEFAULT: mixed]\n" +
-		" --max-results         Maximum number of results to return [DEFAULT: 10]\n" +
-		" --next-page-token     Token for the next page of results, can be obtained from previous search results\n" +
+		" --filter              " + helpSearchFilterString + "\n" +
+		" --max-results         " + helpMaxResultsString + "\n" +
+		" --next-page-token     " + helpNextPageTokenString + "\n" +
 		" query                	Search query [REQUIRED]" +
 		"\n\n" +
 		"Supplemental options:\n" +
-		" --help     Show this subcommand help"
+		" --help     " + helpShowHelpString
 
 	fmt.Println(helpString)
 }
@@ -31,10 +31,10 @@ func runSearch(ctx context.Context, args []string) {
 	flagSet.Usage = showHelpSearch
 
 	// args
-	filter := flagSet.String("filter", "mixed", "Result type: video, playlist, or mixed")
-	maxResults := flagSet.Int64("max-results", 10, "Maximum number of results to return")
-	nextPageToken := flagSet.String("next-page-token", "", "Token for the next page of results")
-	showHelp := flagSet.Bool("help", false, "Show this subcommand help")
+	filter := flagSet.String("filter", "mixed", helpSearchFilterString)
+	maxResults := flagSet.Int64("max-results", 10, helpMaxResultsString)
+	nextPageToken := flagSet.String("next-page-token", "", helpNextPageTokenString)
+	showHelp := flagSet.Bool("help", false, helpShowHelpString)
 
 	// get the leftover positional arguments as a prompt after parsing command line named arguments
 	flagSet.Parse(args)

@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube Watcher CLI"
+  short_description: "Watch YouTube videos by calling Gemini to analyze content and give textual results using CLI."
+  default_prompt: "Use $youtube-watcher-cli to watch YouTube videos and get textual results."

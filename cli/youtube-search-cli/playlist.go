@@ -15,12 +15,12 @@ func showHelpPlaylist() {
 	helpString := "List videos from playlist" +
 		"\n\nUsage: " + os.Args[0] + " playlist [options] [playlist ID]\n" +
 		"\nPlaylist options:\n" +
-		" --max-results         Maximum number of results to return [DEFAULT: 10]\n" +
-		" --next-page-token     Token for the next page of results, can be obtained from previous playlist results\n" +
+		" --max-results         " + helpMaxResultsString + "\n" +
+		" --next-page-token     " + helpNextPageTokenString + "\n" +
 		" id                	Playlist ID [REQUIRED]" +
 		"\n\n" +
 		"Supplemental options:\n" +
-		" --help     Show this subcommand help"
+		" --help     " + helpShowHelpString
 
 	fmt.Println(helpString)
 }
@@ -30,9 +30,9 @@ func runPlaylistQuery(ctx context.Context, args []string) {
 	flagSet.Usage = showHelpPlaylist
 
 	// args
-	maxResults := flagSet.Int64("max-results", 10, "Maximum number of results to return")
-	nextPageToken := flagSet.String("next-page-token", "", "Token for the next page of results")
-	showHelp := flagSet.Bool("help", false, "Show this subcommand help")
+	maxResults := flagSet.Int64("max-results", 10, helpMaxResultsString)
+	nextPageToken := flagSet.String("next-page-token", "", helpNextPageTokenString)
+	showHelp := flagSet.Bool("help", false, helpShowHelpString)
 
 	// get the leftover positional arguments as a prompt after parsing command line named arguments
 	flagSet.Parse(args)

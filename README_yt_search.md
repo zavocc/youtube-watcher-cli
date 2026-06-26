@@ -13,10 +13,12 @@ For automation, CI, scripts, and terminal agents, especially those that's runnin
 
 # Limitations
 ## Missing functionality
-the CLI program is already capable at it's core for searching, listing videos from playlist, and obtaining video metadata, there are some features that's not currently implemented:
+the CLI program is already capable at it's core for searching, listing videos from playlist, and obtaining video metadata, there are some features that's not currently implemented and some to be worked  on:
 
 - [ ] Transcription extraction.
 - [ ] Playlist filtering (e.g. query or conditional matching)
+- [ ] Channels only filter for Search
+- [ ] Concise search results
 
 ## API Quota
 Regardless if you're accessing YouTube Data API v3 with Google Cloud free or paid project, the API maintains a unit based credits system. Each project for each Google account have 10K units a day, with quota increase can only be done by contacting Google Cloud.
@@ -58,10 +60,13 @@ Subcommands include three mode of operations:
 
     To see optional flags for `search` subcommand such as filtering or setting number of results per page, try `youtube-search-cli search --help`
 
-    Common useful flags for this subcommand include:  
+    Optional flags for this subcommand include:  
     -  `--max-results N` - set number of results per page. Max 50, default is 10.
     -  `--filter [video|playlist|mixed]` -  filters results, either `video`, `playlist`, or `mixed` (both videos and playlist). By default, if this flag is not set then `mixed` results are shown.
     -  `--next-page-token TOKEN` - paginates to next results, this can be obtained from previous response.
+
+    This endpoint returns a `youtube#searchListResponse` kind, with `id` and `snippet` parts.
+
 - `playlist` - Lists videos from a given playlist ID.
 
     Usage:
@@ -71,9 +76,32 @@ Subcommands include three mode of operations:
 
     To see optional flags for `playlist`, try `youtube-search-cli playlist --help`
 
-    Common useful flags for this subcommand include:  
+    Optional flags for this subcommand include:  
     -  `--max-results N` - set number of results per page. Max 50, default is 10.
     -  `--next-page-token TOKEN` - paginates to next results, this can be obtained from previous response.
+
+    This endpoint returns a `youtube#playlistListResponse` kind, with `id`, `snippet`, and `contentDetails` parts.
+
+- `channel` - Lists videos from a given channel ID, legacy username, or handle.
+
+    Usage:
+    ```shell
+    youtube-search-cli channel [--query-type id|username|handle] [--max-results N] [--next-page-token TOKEN] QUERY_CHANNEL_NAME_OR_ID
+    ```
+
+    To see optional flags for `channel`, try `youtube-search-cli channel --help`
+
+    Optional flags for this subcommand include:  
+    - `--query-type [id|username|handle]` - sets query type, by default, querying is set to `handle`. 
+    
+        The `username` query type should not be used as Google rolled out the username with handle system in 2022 for all channels, some larger channels still use the legacy username system, using `handle` query type can either have the query starts with or without `@` symbol. 
+        
+        The channel ID can only be obtained from previous results from `playlist` or `search` endpoints, with the `channelId` field associated with the video.
+    -  `--max-results N` - set number of results per page. Max 50, default is 10.
+    -  `--next-page-token TOKEN` - paginates to next results, this can be obtained from previous response.
+
+    This endpoint returns a `youtube#playlistListResponse` kind, with `id`, `snippet`, and `contentDetails` parts.
+
 - `video` - Fetches the video metadata from a given video ID.
 
     Usage:
@@ -81,11 +109,13 @@ Subcommands include three mode of operations:
     youtube-search-cli video VIDEO_ID
     ```
 
-    This subcommand only takes one YouTube video ID, with no additional optional flags.  
+    This subcommand only takes one YouTube video ID, with no additional optional flags.
+
+    This endpoint returns a `youtube#videoListResponse` kind, with `id`, `snippet`, and `contentDetails` parts.  
 
 ## Associated Costs
 Each action cost varying units depending on the type of task.  
-- `video` and `playlist` endpoints only cost 1 quota out of  10,000.
+- `video`, `channel` and `playlist` endpoints only cost 1 quota out of  10,000.
 - `search` endpoints cost 100 quota out of 10,000. 
 
 Exactly 10K calls a day for solely video and playlist operations and 100 calls a day for solely search operations before reaching the daily limit for all endpoints.

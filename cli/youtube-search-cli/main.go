@@ -15,6 +15,7 @@ func showHelp() {
 		" search                Search YouTube for videos and playlists\n" +
 		" playlist              List videos in a playlist from its playlist ID\n" +
 		" video                 Get metadata for a specific video by its ID\n" +
+		" channel               List videos from a channel by its ID, username, or handle\n" +
 		"\nTo get help for a specific subcommand, run:\n" +
 		" " + os.Args[0] + " <subcommand> --help" +
 		"\n\n" +
@@ -53,6 +54,8 @@ func main() {
 		runPlaylistQuery(ctx, os.Args[2:])
 	case "video":
 		runVideoQuery(ctx, os.Args[2:])
+	case "channel":
+		runChanQuery(ctx, os.Args[2:])
 	default:
 		fmt.Fprintln(os.Stderr, "Unknown subcommand:", os.Args[1])
 		showHelp()

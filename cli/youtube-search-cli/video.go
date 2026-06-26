@@ -18,7 +18,7 @@ func showHelpVideo() {
 		" id                	Video ID [REQUIRED]" +
 		"\n\n" +
 		"Supplemental options:\n" +
-		" --help     Show this subcommand help"
+		" --help     " + helpShowHelpString
 
 	fmt.Println(helpString)
 }
@@ -27,7 +27,7 @@ func runVideoQuery(ctx context.Context, args []string) {
 	flagSet := flag.NewFlagSet("video", flag.ExitOnError)
 	flagSet.Usage = showHelpVideo
 
-	showHelp := flagSet.Bool("help", false, "Show this subcommand help")
+	showHelp := flagSet.Bool("help", false, helpShowHelpString)
 
 	// get the leftover positional arguments as a prompt after parsing command line named arguments
 	flagSet.Parse(args)
