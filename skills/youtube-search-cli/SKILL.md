@@ -27,11 +27,11 @@ Place named options before the positional query or ID.
 ### Search
 
 ```bash
-youtube-search-cli search [--filter video|playlist|mixed] [--max-results N] [--next-page-token TOKEN] "QUERY"
+youtube-search-cli search [--filter video|playlist|channel|mixed] [--max-results N] [--next-page-token TOKEN] "QUERY"
 ```
 
 - `QUERY`: Required search text. Quote it when it contains spaces.
-- `--filter`: Optional result type. Accept `video`, `playlist`, or `mixed`; default `mixed`.
+- `--filter`: Optional result type. Accept `video`, `playlist`, `channel` or `mixed`; default `mixed`.
 - `--max-results`: Optional results per page from 1 to 50; default 10.
 - `--next-page-token`: Optional token from a previous response for the next result page.
 
@@ -41,6 +41,7 @@ Examples:
 youtube-search-cli search "Never Gonna Give You Up"
 youtube-search-cli search --filter video --max-results 25 "TypeScript tutorials"
 youtube-search-cli search --max-results 50 --next-page-token TOKEN "travel vlogs"
+youtube-search-cli search --filter channel --max-results 5 "News"
 ```
 
 This endpoint returns a `youtube#searchListResponse` kind, with `id` and `snippet` parts.

@@ -50,6 +50,7 @@ func GApiClient(prompt string, url string, model string, resolution string) (str
 		}, genai.RoleUser),
 	}
 
+	var resSchema = genResponseSchema()
 	result, err := client.Models.GenerateContent(
 		ctx, modelSelectedConfig.ModelID,
 		contents,
@@ -57,6 +58,8 @@ func GApiClient(prompt string, url string, model string, resolution string) (str
 			SystemInstruction: genai.NewContentFromText(systemPrompt, genai.RoleUser),
 			ThinkingConfig:    modelSelectedConfig.ThinkingConfig,
 			MediaResolution:   genai.MediaResolution(mediaResLevel),
+			ResponseMIMEType:  "application/json",
+			ResponseSchema:    resSchema,
 		},
 	)
 

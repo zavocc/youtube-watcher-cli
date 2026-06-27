@@ -18,7 +18,7 @@ func Search(service *youtube.Service, query string, filter string, maxResults in
 		SafeSearch("none")
 
 	switch filter {
-	case "video", "playlist":
+	case "video", "playlist", "channel":
 		call = call.Type(filter)
 	case "mixed":
 		// Omitting Type allows mixed search results.

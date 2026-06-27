@@ -6,7 +6,7 @@ const (
 	helpShowHelpString      = "Show this subcommand help"
 
 	// for search.go
-	helpSearchFilterString = "Result type: video, playlist, or mixed"
+	helpSearchFilterString = "Result type: video, playlist, channel or mixed"
 
 	// for  channel.go
 	helpChanHelpQueryTypeString = "Type of query to use for channel search: id, username, or handle"
