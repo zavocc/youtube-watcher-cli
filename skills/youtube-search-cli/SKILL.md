@@ -11,7 +11,7 @@ Use the `youtube-search-cli` binary for structured YouTube search and metadata r
 
 - Treat this as a standalone binary tool, not a library or source package.
 - Expect `youtube-search-cli` or `youtube-search-cli.exe` to be available on `PATH`, unless the user provides an explicit executable path.
-- Require `YOUTUBE_DATA_API_KEY` in the environment.
+- Require `YOUTUBE_DATA_API_KEY` in the environment. However, this can only be reliably determined after running the executable and decides if it can proceed or missing environment variable when performing any operation.
 - Never ask the user to paste the API key into the prompt or include it in a command.
 - Expect successful commands to emit indented JSON on stdout.
 - Pass a playlist ID or video ID to ID-based commands, not a YouTube URL.
@@ -148,7 +148,7 @@ Keep in mind that this depends on the results shown so these combinations are no
 
 ## Failure handling
 
-- If `YOUTUBE_DATA_API_KEY` is missing, ask the user to set the environment variable first before continuing, and discourage putting the API key within the current agent context.
+- If `YOUTUBE_DATA_API_KEY` is missing, ask the user to set the environment variable first before continuing, and discourage putting the API key within the current agent context. The user can also set an environment variable to a file, refer the user to this documentation: https://github.com/zavocc/youtube-cli#usage-and-installation. In addition, do not set or source any environment variable yourself and you must halt first and explicitly ask the user to set it up first before continuing or perform alternatives.
 - If the binary is missing from `PATH`, ask for its executable path or direct the user to install the release binary.
 - If given a YouTube URL for `video`, extract its video ID. If given a playlist URL for `playlist`, extract its `list` parameter. If given a channel URL that has a username or handle in the URL, extract the username or handle.
 - If the API reports quota exhaustion, stop retrying and explain which operation consumed quota. Suggest waiting for quota reset or using a non-API discovery method.

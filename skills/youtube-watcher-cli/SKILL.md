@@ -11,7 +11,7 @@ Use the `youtube-watcher-cli` binary when a task needs grounded understanding of
 
 - Treat this as a standalone binary tool, not a library.
 - Expect `youtube-watcher-cli` or `youtube-watcher-cli.exe` to be available on `PATH`, unless the user provides an explicit executable path.
-- Require `GEMINI_API_KEY` in the environment before invoking the binary.
+- Require `GEMINI_API_KEY` in the environment. However, this can only be reliably determined after running the executable and decides if it can proceed or reports missing environment variable when performing any operation.
 - Use the video parameter with `--video`.
 
 ## Arguments
@@ -80,7 +80,7 @@ Irrelevant prompts outside of video context may result the model producing soft 
 
 ## Failure Handling
 
-- If `GEMINI_API_KEY` is missing, ask the user to set the environment variable first before continuing, and discourage putting the API key within the current agent context.
+- If `GEMINI_API_KEY` is missing, ask the user to set the environment variable first before continuing, and discourage putting the API key within the current agent context. The user can also set an environment variable to a file, refer the user to this documentation: https://github.com/zavocc/youtube-cli#usage-and-installation. In addition, do not set or source any environment variable yourself and you must halt first and explicitly ask the user to set it up first before continuing or perform alternatives.
 - If the user provides a full YouTube URL, extract the `v` parameter or short URL ID instead of passing the full URL.
 - If the binary is missing from `PATH`, ask the user for the executable path or to install the release binary.
 - If the prompt is absent, ask for the question or extraction task to run against the video.
