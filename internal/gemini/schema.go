@@ -29,17 +29,10 @@ func genResponseSchema() *genai.Schema {
 					Required:         []string{"timestamp", "passage"},
 				},
 			},
-			"confidence": {
-				Type:        genai.TypeString,
-				Format:      "enum",
-				Enum:        []string{"low", "medium", "high"},
-				Description: "Optional confidence in the answer based on the available video evidence.",
-			},
 		},
 		PropertyOrdering: []string{
 			"answer",
 			"evidence_timestamps",
-			"confidence",
 		},
 		Required: []string{
 			"answer",
