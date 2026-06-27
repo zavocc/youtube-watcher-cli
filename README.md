@@ -51,7 +51,7 @@ Note that the prompt must be at the end of the argument, either quoted or unquot
 The `youtube-watcher-cli` agent skill allows the agents of your choice effectively use this tool and understand YouTube videos. To install, use the `npx skills` command:
 
 ```shell
-npx skills add zavocc/youtube-watcher-cli --global     
+npx skills add zavocc/youtube-cli
 ```
 
 You will be asked where to install the skill based on the agent tools you use.
