@@ -43,7 +43,7 @@ Do not place named options after the prompt. Anything after the prompt is treate
 ## Workflow
 
 1. Obtain the YouTube video URL or ID from the user input.
-2. Confirm if non-empty `~/.youtube.env` file or `GEMINI_API_KEY` is available in the command environment.
+2. Confirm if `GEMINI_API_KEY` is available in the command environment.
 3. Run the binary with `--video` before the prompt.
 4. Read the answer from stdout and report the relevant result to the user.
 
@@ -60,6 +60,10 @@ youtube-watcher-cli --video dQw4w9WgXcQ classify whether this video is safe to s
 
 Quote the prompt if the shell or command runner requires it, but keep it as the final positional argument.
 
+## Pipelines and redirection
+
+Piping from other command outputs to Watcher CLI aren't supported yet, therefore avoid using piping commands with the Watcher CLI executable as a way to ingest context. However, Watcher CLI outputs from `stdout` and its errors from OS `stderr` can be piped to other commands or redirected to a file.
+
 ## Model capabilities
 
 ### What it can do:
@@ -72,9 +76,12 @@ It cannot see YouTube video ID, title, or other metadata. Use `yt-dlp` or YouTub
 
 It may also struggle with very long videos due to context limit, such as videos exceeding more than 1.5 hours with audio. Before committing to input videos, check the metadata and duration of the video first whenever possible to ensure it is within the model's context limit. 
 
+Irrelevant prompts outside of video context may result the model producing soft refusal as it is instructed to answer questions bound into the video, but not susceptible to jailbreaks. Text and video content has potential risks with prompt injection as multimodal inputs can inject instructions that would drift its intended task, use model outputs with caution.
+
 ## Failure Handling
 
-- If `GEMINI_API_KEY` is missing, ask the user to set `GEMINI_API_KEY` in `~/.youtube.env` or directly in the terminal before retrying. The binary will search for this file and read it without the need of sourcing, otherwise it will fall back based on existing environment variables set without it.
+- If `GEMINI_API_KEY` is missing, ask the user to set the environment variable first before continuing, and discourage putting the API key within the current agent context.
 - If the user provides a full YouTube URL, extract the `v` parameter or short URL ID instead of passing the full URL.
 - If the binary is missing from `PATH`, ask the user for the executable path or to install the release binary.
 - If the prompt is absent, ask for the question or extraction task to run against the video.
+    
