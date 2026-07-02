@@ -9,9 +9,8 @@ import (
 	"google.golang.org/genai"
 )
 
-func GApiClient(prompt string, url string, model string, resolution string) (string, error) {
-	ctx := context.Background()
-	client, err := genai.NewClient(ctx, nil)
+func GApiClient(ctx context.Context, prompt string, url string, model string, resolution string) (string, error) {
+	client, err := initGeminiClient(ctx)
 	if err != nil {
 		return "", fmt.Errorf("initialize the Gemini API client: %w", err)
 	}

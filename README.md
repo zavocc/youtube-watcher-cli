@@ -26,7 +26,7 @@ It is currently minimalistic program that takes prompt and video ID as input, an
 - [ ] Full Linux support and `Makefile` builds
 - [ ] Full scripting support such as pipelines (piping commands as prompt), file descriptors like stderr for errors
 - [x] Gemini model picker that supports video input (For now it supports 2.5 Flash, 3 Flash, and 3.1 Flash-Lite)
-- [ ] Gemini Enterprise Agent Platform (aka Vertex AI) endpoint support and ADC auth
+- [x] Gemini Enterprise Agent Platform (aka Vertex AI) endpoint support and ADC auth
 - [ ] Flex and Priority inference for budget tuning
 - [ ] Nano Banana 2 based frame extraction
 - [ ] Optional Gemma 4-based guardrails for both input and output
@@ -34,18 +34,27 @@ It is currently minimalistic program that takes prompt and video ID as input, an
 
 *As of 06/23/26, only media resolution parameter is implemented.
 
-# Usage and installation
+# Installation and auth
 Download the binary through the [releases](https://github.com/zavocc/youtube-watcher-cli/releases) page and must have the filename `youtube-watcher-cli`.
 
 After the binary is placed onto the `PATH` environment variable, you must then set `GEMINI_API_KEY` environment variable or this program will not work.
 
+## Authentication
+### Gemini API (AI Studio)
 You can either set `GEMINI_API_KEY` in `~/.youtube.env` or directly setting into the terminal. For coding agents, it's recommended to set the former so you don't have to directly invoke the API key to the prompt.
 
-Use: 
-```
-.\youtube-watcher-cli  --video [YOUTUBE_VIDEO_ID_OR_URL] Write your prompt here
-```
-Note that the prompt must be at the end of the argument, either quoted or unquoted.
+### Gemini Enterprise Agent Platform (Vertex AI)
+If you are using [Gemini Enterprise Agent Platform (a.k.a Vertex AI)](https://docs.cloud.google.com/gemini-enterprise-agent-platform), you will need to set these variables instead:
+-  `GOOGLE_GENAI_USE_ENTERPRISE` - Set this to any value to activate
+- `GOOGLE_CLOUD_PROJECT` - Google Cloud project
+
+Optionally, if you also want to set inference region, use `GOOGLE_CLOUD_LOCATION` environment variable,  otherwise it will default to `global`. Not all models supports data residency controls however.
+
+Note that these variables must be explicitly set otherwise it will fail.
+
+Authentication depends on your setup, it will auto-discover your existing authentication configuration. For example, if you decide to authenticate as service account json, you would set `GOOGLE_APPLICATION_CREDENTIALS` environment variable pointing to JSON file. The tool does not check this environment variable existence. See https://docs.cloud.google.com/docs/authentication for more information.
+
+Vertex express mode is not supported at this time, set Gemini API key from AI studio for free tier requests with `gemini-3.1-flash-lite`.
 
 ## Installing the agent skill
 The `youtube-watcher-cli` agent skill allows the agents of your choice effectively use this tool and understand YouTube videos. To install, use the `npx skills` command:
@@ -58,10 +67,19 @@ You will be asked where to install the skill based on the agent tools you use.
 
 This will install both `youtube-watcher-cli` and `youtube-search-cli` skills.
 
+# Usage
+
+Use: 
+```
+.\youtube-watcher-cli  --video [YOUTUBE_VIDEO_ID_OR_URL] Write your prompt here
+```
+Note that the prompt must be at the end of the argument, either quoted or unquoted.
+
 ## Parameters
 - `--video [YOUTUBE_VIDEO_ID_OR_URL]` - Either the public YouTube video URL or ID of the video itself.
 - `--model [MODEL_ID]` - An optional parameter of model ID to set to analyze videos, please see [models list](./internal/config/models.go) for list of supported model and defaults.
 - `--media-resolution [low|high]` - An optional parameter to set the visual quality when processing video. Use low where speed and cost matters over fine-detail, high if fine detail matters.
+- `--help` - Shows help, ignores other parameters.
 
 `prompt` is placed at the end after named arguments, any arguments placed after `prompt` will be treated as part of the prompt as is. So passing `--model gemini-3-flash-preview` after `prompt` would be treated as prompt.
 

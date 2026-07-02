@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
@@ -41,14 +42,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Check if environment variable exists
-	_, exists := os.LookupEnv("GEMINI_API_KEY")
-
-	if !exists {
-		fmt.Fprintln(os.Stderr, "Gemini API key environment variable not set. Please set it using GEMINI_API_KEY variable in `~/.youtube.env` or directly in the terminal.")
-		os.Exit(1)
-	}
-
 	// Check for args and parse it and use flag.Parse instead of os.Args to ensure positional accuracy
 	flag.Usage = showHelp
 	videoID := flag.String("video", "", "YouTube Video URL or ID")
@@ -78,7 +71,8 @@ func main() {
 	}
 
 	//  dereference videoID so it can be passed as a string normally
-	result, err := gemini.GApiClient(prompt, *videoID, *selectedModel, *mediaRes)
+	ctx := context.Background()
+	result, err := gemini.GApiClient(ctx, prompt, *videoID, *selectedModel, *mediaRes)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "An error has occurred - ", err)
 		os.Exit(1)

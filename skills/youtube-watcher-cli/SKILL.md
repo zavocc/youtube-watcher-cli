@@ -11,7 +11,7 @@ Use the `youtube-watcher-cli` binary when a task needs grounded understanding of
 
 - Treat this as a standalone binary tool, not a library.
 - Expect `youtube-watcher-cli` or `youtube-watcher-cli.exe` to be available on `PATH`, unless the user provides an explicit executable path.
-- Require `GEMINI_API_KEY` in the environment. However, this can only be reliably determined after running the executable and decides if it can proceed or reports missing environment variable when performing any operation.
+- Require `GEMINI_API_KEY` for Gemini Developer API users or `GOOGLE_GENAI_USE_ENTERPRISE` along with `GOOGLE_CLOUD_PROJECT` environment variable for Gemini Enterprise Agent Platform (a.k.a Vertex AI) users. However, this can only be reliably determined after running the executable and decides if it can proceed or reports missing environment variable when performing any operation.
 - Use the video parameter with `--video`.
 
 ## Arguments
@@ -80,7 +80,9 @@ Irrelevant prompts outside of video context may result the model producing soft 
 
 ## Failure Handling
 
-- If `GEMINI_API_KEY` is missing, ask the user to set the environment variable first before continuing, and discourage putting the API key within the current agent context. The user can also set an environment variable to a file, refer the user to this documentation: https://github.com/zavocc/youtube-cli#usage-and-installation. In addition, do not set or source any environment variable yourself and you must halt first and explicitly ask the user to set it up first before continuing or perform alternatives.
+- If `GEMINI_API_KEY` is missing in case for Gemini Developer API users, ask the user to set the environment variable first before continuing, and discourage putting the API key within the current agent context. The user can also set an environment variable to a file, refer the user to this documentation: https://github.com/zavocc/youtube-cli#installation-and-auth. In addition, do not set or source any environment variable yourself and you must halt first and explicitly ask the user to set it up first before continuing or perform alternatives.
+- If `GOOGLE_GENAI_USE_ENTERPRISE` is set along with `GOOGLE_CLOUD_PROJECT` instead of `GEMINI_API_KEY` but reports authentication failure, ask the user to authenticate with Google Cloud with project and Gemini Enterprise Agent Platform (a.k.a Vertex AI) access, also refer to the same installation and auth URL above and you must halt first for the user to take manual action to authenticate, which includes but not limited to setting the optional `GOOGLE_APPLICATION_CREDENTIALS` path to service account JSON, workload identity federation, or impersonation. You can also link the user to https://docs.cloud.google.com/docs/authentication.
+- If using Gemini Enterprise Agent Platform (Vertex AI) and reports invalid region, the model may not support regional inference or data residency controls, to diagnose, ask the user to temporarily unset `GOOGLE_CLOUD_LOCATION` and retry as it will default to `global` region. You must also halt and acknowledge the user if its okay for the prompt to be inferenced outside of their preferred region before proceeding.
 - If the user provides a full YouTube URL, extract the `v` parameter or short URL ID instead of passing the full URL.
 - If the binary is missing from `PATH`, ask the user for the executable path or to install the release binary.
 - If the prompt is absent, ask for the question or extraction task to run against the video.
